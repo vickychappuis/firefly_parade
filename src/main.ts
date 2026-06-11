@@ -3,11 +3,13 @@ import { createState } from './state';
 import { createTransport } from './transport';
 import { createScene } from './scene';
 import { buildGrid } from './grid';
+import { createAudio } from './audio';
 
 const bg = document.querySelector<HTMLCanvasElement>('#bg')!;
 const fx = document.querySelector<HTMLCanvasElement>('#fx')!;
 const gridEl = document.querySelector<HTMLElement>('#grid')!;
 const playBtn = document.querySelector<HTMLButtonElement>('#play')!;
+const muteBtn = document.querySelector<HTMLButtonElement>('#mute')!;
 const undoBtn = document.querySelector<HTMLButtonElement>('#undo')!;
 const clearBtn = document.querySelector<HTMLButtonElement>('#clear')!;
 const tempoInput = document.querySelector<HTMLInputElement>('#tempo')!;
@@ -17,8 +19,24 @@ const toast = document.querySelector<HTMLElement>('#toast')!;
 const state = createState();
 const transport = createTransport(Number(tempoInput.value));
 const scene = createScene(bg, fx, state);
+const audio = createAudio();
 
-buildGrid(gridEl, state, (col, row) => scene.pulse(col, row, performance.now()));
+buildGrid(gridEl, state, (col, row) => {
+  scene.pulse(col, row, performance.now());
+  audio.preview(row);
+});
+
+if (import.meta.env.DEV) {
+  (window as unknown as Record<string, unknown>).__audioDebug = () => audio.debug();
+}
+
+muteBtn.addEventListener('click', () => {
+  const next = !audio.muted;
+  audio.setMuted(next);
+  muteBtn.setAttribute('aria-label', next ? 'Unmute' : 'Mute');
+  muteBtn.setAttribute('aria-pressed', String(next));
+  muteBtn.classList.toggle('muted', next);
+});
 
 state.subscribe(() => {
   undoBtn.disabled = !state.canUndo();
@@ -81,7 +99,9 @@ function frame(now: number) {
     const col = Math.floor(pos);
     if (col !== lastCol) {
       lastCol = col;
-      scene.flashColumn(col, state.rowsActiveIn(col), now);
+      const rows = state.rowsActiveIn(col);
+      scene.flashColumn(col, rows, now);
+      for (const row of rows) audio.play(row);
     }
     scene.render(now, pos);
   } else {

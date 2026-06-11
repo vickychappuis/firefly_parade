@@ -99,6 +99,18 @@ body {
   padding: 0.45rem 0;
 }
 
+#mute {
+  font-size: 1.05rem;
+  width: 3rem;
+  text-align: center;
+  padding: 0.45rem 0;
+}
+
+#mute.muted {
+  text-decoration: line-through;
+  opacity: 0.45;
+}
+
 .tempo {
   display: flex;
   align-items: center;
