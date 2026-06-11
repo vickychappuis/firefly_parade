@@ -1,5 +1,7 @@
 # Firefly Choreographer
 
+**Live at [fireflyparade.vickychappuis.dev](https://fireflyparade.vickychappuis.dev)**
+
 A browser toy: paint a 16×6 time grid and a looping nighttime meadow answers back with
 fireflies. Columns are time, rows are flight height (warm amber near the grass, cool
 moon-white up high). When the moonbeam sweep crosses a painted cell, that cell's firefly
@@ -19,6 +21,8 @@ npm run dev       # local dev server
 npm run build     # type-check + production build into dist/
 npm run preview   # serve the production build
 ```
+
+Deployed on Vercel (project `firefly-parade`); `vercel deploy --prod` ships a new build.
 
 ## Controls
 
