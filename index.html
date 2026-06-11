@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ccircle cx='8' cy='8' r='4' fill='%23f2cd7e'/%3E%3C/svg%3E" />
+    <title>Firefly Choreographer</title>
+  </head>
+  <body>
+    <canvas id="bg"></canvas>
+    <canvas id="fx"></canvas>
+    <div id="grid" aria-label="Choreography grid"></div>
+    <div id="toast" role="status"></div>
+    <div id="toolbar">
+      <button id="play" aria-label="Play">▶</button>
+      <div class="tempo">
+        <label for="tempo">Tempo</label>
+        <input id="tempo" type="range" min="40" max="240" value="120" step="1" />
+        <span id="bpm">120 BPM</span>
+      </div>
+      <div class="spacer"></div>
+      <button id="undo" disabled>Undo</button>
+      <button id="clear">Clear</button>
+    </div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

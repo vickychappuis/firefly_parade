@@ -1,0 +1,141 @@
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+  background: #04040f;
+  font-family: 'Avenir Next', 'Segoe UI', system-ui, sans-serif;
+  color: #cdd3e8;
+  user-select: none;
+}
+
+#bg,
+#fx {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+#fx {
+  z-index: 1;
+}
+
+#grid {
+  position: fixed;
+  left: 4vw;
+  right: 4vw;
+  top: 7vh;
+  bottom: 19vh;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: repeat(16, 1fr);
+  grid-template-rows: repeat(6, 1fr);
+  touch-action: none;
+  cursor: crosshair;
+}
+
+.cell {
+  border: 1px solid rgba(255, 255, 255, 0.055);
+  transition: background-color 120ms ease;
+}
+
+.cell.band {
+  background: rgba(255, 255, 255, 0.018);
+}
+
+.cell:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.cell.active {
+  box-shadow: inset 0 0 0 1px rgba(255, 222, 150, 0.28);
+  background: rgba(255, 205, 130, 0.05);
+}
+
+#toolbar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  padding: 0.9rem 1.5rem;
+  background: rgba(7, 8, 22, 0.72);
+  backdrop-filter: blur(8px);
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+#toolbar button {
+  font: inherit;
+  color: #e6eaf6;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 999px;
+  padding: 0.45rem 1.1rem;
+  cursor: pointer;
+  transition: background-color 120ms ease;
+}
+
+#toolbar button:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+#toolbar button:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+#play {
+  font-size: 1.05rem;
+  width: 3rem;
+  text-align: center;
+  padding: 0.45rem 0;
+}
+
+.tempo {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.tempo input {
+  width: 180px;
+  accent-color: #f2cd7e;
+}
+
+#bpm {
+  min-width: 4.5rem;
+  font-variant-numeric: tabular-nums;
+  color: #f2cd7e;
+}
+
+.spacer {
+  flex: 1;
+}
+
+#toast {
+  position: fixed;
+  bottom: 5.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
+  padding: 0.5rem 1rem;
+  border-radius: 999px;
+  background: rgba(10, 12, 30, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  font-size: 0.85rem;
+  opacity: 0;
+  transition: opacity 250ms ease;
+  pointer-events: none;
+}
+
+#toast.show {
+  opacity: 1;
+}
